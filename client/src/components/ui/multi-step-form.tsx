@@ -206,16 +206,21 @@ export function MultiStepForm({ form }: { form: UseFormReturn<any> }) {
                     You can set up to three objectives, or skip this section and let AI help guide you.
                   </p>
                   {[0, 1, 2].map((i) => (
-                    <Input
-                      key={i}
-                      placeholder={`Objective ${i + 1} (optional)`}
-                      value={field.value[i] || ""}
-                      onChange={(e) => {
-                        const newObjectives = [...field.value];
-                        newObjectives[i] = e.target.value;
-                        field.onChange(newObjectives.filter(Boolean));
-                      }}
-                    />
+                    <FormControl key={i}>
+                      <Input
+                        placeholder={`Objective ${i + 1} (optional)`}
+                        value={Array.isArray(field.value) ? field.value[i] || "" : ""}
+                        onChange={(e) => {
+                          const newObjectives = Array.isArray(field.value) ? [...field.value] : [];
+                          if (e.target.value) {
+                            newObjectives[i] = e.target.value;
+                          } else {
+                            newObjectives[i] = "";
+                          }
+                          field.onChange(newObjectives.filter(Boolean));
+                        }}
+                      />
+                    </FormControl>
                   ))}
                 </div>
                 <FormMessage />

@@ -36,12 +36,14 @@ export const baSurveys = pgTable("ba_surveys", {
   generatedPlan: json("generated_plan")
 });
 
-export const insertBaSurveySchema = createInsertSchema(baSurveys).omit({
-  id: true,
-  generatedPlan: true
-}).extend({
-  objectives: z.array(z.string()).optional().default([])
-});
+export const insertBaSurveySchema = createInsertSchema(baSurveys)
+  .omit({
+    id: true,
+    generatedPlan: true
+  })
+  .extend({
+    objectives: z.array(z.string()).default([])
+  });
 
 export type InsertBaSurvey = z.infer<typeof insertBaSurveySchema>;
 export type BaSurvey = typeof baSurveys.$inferSelect;
