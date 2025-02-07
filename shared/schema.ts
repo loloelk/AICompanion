@@ -33,7 +33,13 @@ export const baSurveys = pgTable("ba_surveys", {
   communityResources: text("community_resources"),
   objectives: json("objectives").array(),
   shortTermGoal: text("short_term_goal"),
-  generatedPlan: json("generated_plan")
+  generatedPlan: json("generated_plan").$type<{
+    summary: string;
+    objectives: string[];
+    smartGoals: string[];
+    actionSteps: string[];
+    reminders: string[];
+  } | null>()
 });
 
 export const insertBaSurveySchema = createInsertSchema(baSurveys)
