@@ -1,0 +1,108 @@
+/*
+Project: Personalized Behavioral Activation (BA) Plan Generator
+
+Description:
+This interactive web application is designed for patients experiencing chronic or treatment-refractory depression. The app collects user data through a series of guided questions and utilizes the ChatGPT-4.0 model to generate a personalized Behavioral Activation plan, including preliminary objectives and SMART goals. The GUI should be simple, clean, and inviting (inspired by modern wellness apps) with subtle animations to create an engaging user experience. In future development, the app may upgrade to a more advanced reasoning model.
+
+Features:
+1. A user-friendly interface with clear sections and intuitive navigation.
+2. Questions use a hybrid approach: structured inputs (e.g., dropdowns, sliders) and open-ended text fields.
+3. Patients can provide up to three preliminary objectives. If they are unable to set objectives, they can skip this section, and the AI will assist in guiding them through objective setting.
+4. After submitting the form, responses are compiled into a JSON object and sent to the ChatGPT-4.0 API endpoint (with an option to upgrade to a reasoning model later).
+5. The generative AI produces a personalized BA plan that includes reminders and prompts for refining objectives into SMART goals over time.
+6. The BA plan is then displayed in a clean and readable format, with options to save or print.
+
+User Data Collection:
+The application should prompt the following questions:
+
+--- SECTION 1: Current Mood and Health ---
+1. **Mood Rating (Structured):**
+   - Question: “On a scale from 1 to 10, how would you rate your overall mood over the past week?”
+   - Input: Slider or dropdown (values 1 to 10)
+   - Optional Follow-up: “Please describe in a few sentences what contributed to this rating.” (Text area)
+
+2. **Daily Energy and Mood Description (Open-Ended):**
+   - Question: “How would you describe your current mood and energy levels throughout the day?”
+   - Input: Text area
+
+3. **Mood Patterns (Hybrid):**
+   - Question: “Are there specific times during the day when you feel significantly better or worse? (e.g., mornings, afternoons, evenings) Please explain.”
+   - Input: Dropdown for time options with an accompanying text area for explanation
+
+--- SECTION 2: Daily Routine and Activity Engagement ---
+4. **Typical Day Overview (Open-Ended):**
+   - Question: “Can you describe a typical day for you? Please include your wake-up time, meals, work or daily responsibilities, and any leisure activities.”
+   - Input: Text area
+
+5. **Past Enjoyable Activities (Open-Ended):**
+   - Question: “What activities or hobbies did you enjoy in the past that you currently find yourself missing?”
+   - Input: Text area
+
+6. **Current Activity Frequency (Structured):**
+   - Question: “On average, how many days per week do you engage in physical or social activities?”
+   - Input: Dropdown options: “0 days”, “1-2 days”, “3-4 days”, “5+ days”
+
+7. **Peak Energy Moments (Open-Ended):**
+   - Question: “Are there particular moments or parts of your day when you feel more motivated or have extra energy? Please describe them.”
+   - Input: Text area
+
+--- SECTION 3: Interests, Values, and Motivators ---
+8. **Personal Interests and Values (Open-Ended):**
+   - Question: “What activities, roles, or hobbies do you consider most meaningful or important in your life?”
+   - Input: Text area
+
+9. **Motivators and Goals (Open-Ended):**
+   - Question: “Can you share any personal values or long-term goals that inspire you or that you’d like to work towards?”
+   - Input: Text area
+
+10. **Positive Experience Reflection (Open-Ended):**
+    - Question: “Think of a recent time when you felt even a little positive or satisfied. What were you doing, and what made that experience rewarding?”
+    - Input: Text area
+
+--- SECTION 4: Barriers and Challenges ---
+11. **Identifying Obstacles (Open-Ended):**
+    - Question: “What challenges or obstacles currently prevent you from engaging in the activities you enjoy?”
+    - Input: Text area
+
+12. **Environmental or Routine Barriers (Hybrid):**
+    - Question: “Are there any specific aspects of your daily routine or environment that make it difficult to be active? (e.g., lack of time, physical health concerns, limited access to safe outdoor spaces) Please describe.”
+    - Input: Dropdown for common options with an accompanying text area for further details
+
+--- SECTION 5: Support and Resources ---
+13. **Social Support Network (Open-Ended):**
+    - Question: “Who do you rely on for support in your day-to-day life, and how do they help you?”
+    - Input: Text area
+
+14. **Community and Resource Access (Open-Ended):**
+    - Question: “Are there any community resources, groups, or services you have access to that might help you become more active? Please list any that come to mind.”
+    - Input: Text area
+
+--- SECTION 6: Goals and Future Aspirations ---
+15. **Preliminary Objectives (Hybrid):**
+    - Question: “Please list up to three objectives you’d like to work on to improve your mood and activity levels. If you’re unsure, you may skip this step and our AI will help guide you.”
+    - Input: Three separate text fields (or allow adding up to three entries) with an option to skip.
+
+16. **Short-Term Goal Setting (Open-Ended):**
+    - Question: “What would you like to achieve in the next two weeks in terms of increasing activity or improving your mood? Please be as specific as possible.”
+    - Input: Text area
+
+Instructions for the AI Integration:
+- Compile the user responses into a JSON object.
+- Use a POST request to send this JSON to the ChatGPT-4.0 API endpoint.
+  - Note: The code should be modular so that the API endpoint can be switched to a more advanced reasoning model in the future.
+- If the user has skipped setting preliminary objectives, include logic for the AI to guide them through objective setting.
+- The AI response should generate a personalized BA plan that includes:
+  - A review of the user's data,
+  - Preliminary (non-SMART) objectives (if provided or guided by the AI),
+  - A BA plan with suggested reminders and prompts to eventually refine these objectives into SMART goals.
+- Display the AI-generated BA plan on a clean, responsive page. Provide options to save or print the plan.
+
+Additional Implementation Notes:
+- The app should use modern HTML, CSS, and JavaScript (or a preferred framework such as React or Vue).
+- Implement subtle animations (e.g., fade-ins, smooth transitions) to enhance the user experience.
+- Ensure the GUI is optimized for both desktop and mobile devices.
+- Include error handling for incomplete submissions and provide clear feedback (e.g., loading spinners during the AI API call).
+
+Please generate the complete code for this application.
+*/
+
