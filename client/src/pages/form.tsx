@@ -25,17 +25,39 @@ export default function FormPage() {
       fatigueLossOfEnergy: false,
       worthlessnessGuilt: false,
       concentrationDifficulty: false,
-      objectives: [],
-      activityFrequency: "0 days"
+      objectives: [], // Initialize as empty array
+      activityFrequency: "0 days",
+      // Initialize other text fields as empty strings
+      typicalDay: "",
+      pastActivities: "",
+      peakEnergyMoments: "",
+      personalInterests: "",
+      motivatorsGoals: "",
+      positiveExperience: "",
+      obstacles: "",
+      environmentalBarriers: "",
+      barrierDetails: "",
+      socialSupport: "",
+      communityResources: "",
+      shortTermGoal: ""
     }
   });
 
   const onSubmit = async (data: any) => {
     try {
-      const response = await apiRequest("POST", "/api/survey", data);
+      // Ensure objectives is an array
+      const formData = {
+        ...data,
+        objectives: Array.isArray(data.objectives) ? data.objectives : []
+      };
+
+      console.log("Submitting form data:", formData);
+
+      const response = await apiRequest("POST", "/api/survey", formData);
       const result = await response.json();
       setLocation(`/result/${result.id}`);
     } catch (error) {
+      console.error("Form submission error:", error);
       toast({
         title: "Error",
         description: "Failed to submit survey. Please try again.",

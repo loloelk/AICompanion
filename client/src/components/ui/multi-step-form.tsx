@@ -205,23 +205,28 @@ export function MultiStepForm({ form }: { form: UseFormReturn<any> }) {
                   <p className="text-sm text-muted-foreground">
                     You can set up to three objectives, or skip this section and let AI help guide you.
                   </p>
-                  {[0, 1, 2].map((i) => (
-                    <FormControl key={i}>
-                      <Input
-                        placeholder={`Objective ${i + 1} (optional)`}
-                        value={Array.isArray(field.value) ? field.value[i] || "" : ""}
-                        onChange={(e) => {
-                          const newObjectives = Array.isArray(field.value) ? [...field.value] : [];
-                          if (e.target.value) {
-                            newObjectives[i] = e.target.value;
-                          } else {
-                            newObjectives[i] = "";
-                          }
-                          field.onChange(newObjectives.filter(Boolean));
-                        }}
-                      />
-                    </FormControl>
-                  ))}
+                  <div className="space-y-2">
+                    {[0, 1, 2].map((i) => (
+                      <FormControl key={i}>
+                        <Input
+                          placeholder={`Objective ${i + 1} (optional)`}
+                          value={Array.isArray(field.value) && field.value[i] ? field.value[i] : ""}
+                          onChange={(e) => {
+                            const newObjectives = Array.isArray(field.value) ? [...field.value] : [];
+                            // Only update if there's a value
+                            if (e.target.value.trim()) {
+                              newObjectives[i] = e.target.value.trim();
+                            } else {
+                              // Remove empty values
+                              delete newObjectives[i];
+                            }
+                            // Filter out undefined/null values and update
+                            field.onChange(newObjectives.filter(Boolean));
+                          }}
+                        />
+                      </FormControl>
+                    ))}
+                  </div>
                 </div>
                 <FormMessage />
               </FormItem>
