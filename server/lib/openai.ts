@@ -21,8 +21,15 @@ export async function generateBaPlan(survey: BaSurvey) {
       response_format: { type: "json_object" }
     });
 
-    return JSON.parse(response.choices[0].message.content);
-  } catch (error) {
-    throw new Error("Failed to generate BA plan: " + error.message);
+    // Handle potential null content
+    const content = response.choices[0].message.content;
+    if (!content) {
+      throw new Error("Failed to generate plan: Empty response from AI");
+    }
+
+    return JSON.parse(content);
+  } catch (error: any) {
+    console.error("OpenAI API error:", error);
+    throw new Error(`Failed to generate BA plan: ${error.message}`);
   }
 }

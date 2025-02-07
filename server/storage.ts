@@ -10,33 +10,48 @@ export interface IStorage {
 
 export class DatabaseStorage implements IStorage {
   async createBaSurvey(insertSurvey: InsertBaSurvey): Promise<BaSurvey> {
-    const [survey] = await db
-      .insert(baSurveys)
-      .values({ ...insertSurvey, generatedPlan: null })
-      .returning();
-    return survey;
+    try {
+      const [survey] = await db
+        .insert(baSurveys)
+        .values({ ...insertSurvey, generatedPlan: null })
+        .returning();
+      return survey;
+    } catch (error: any) {
+      console.error("Failed to create survey:", error);
+      throw new Error(`Database error: ${error.message}`);
+    }
   }
 
   async getBaSurvey(id: number): Promise<BaSurvey | undefined> {
-    const [survey] = await db
-      .select()
-      .from(baSurveys)
-      .where(eq(baSurveys.id, id));
-    return survey;
+    try {
+      const [survey] = await db
+        .select()
+        .from(baSurveys)
+        .where(eq(baSurveys.id, id));
+      return survey;
+    } catch (error: any) {
+      console.error("Failed to get survey:", error);
+      throw new Error(`Database error: ${error.message}`);
+    }
   }
 
   async updateBaSurveyPlan(id: number, plan: any): Promise<BaSurvey> {
-    const [survey] = await db
-      .update(baSurveys)
-      .set({ generatedPlan: plan })
-      .where(eq(baSurveys.id, id))
-      .returning();
+    try {
+      const [survey] = await db
+        .update(baSurveys)
+        .set({ generatedPlan: plan })
+        .where(eq(baSurveys.id, id))
+        .returning();
 
-    if (!survey) {
-      throw new Error("Survey not found");
+      if (!survey) {
+        throw new Error(`Survey with ID ${id} not found`);
+      }
+
+      return survey;
+    } catch (error: any) {
+      console.error("Failed to update survey plan:", error);
+      throw new Error(`Failed to update survey plan: ${error.message}`);
     }
-
-    return survey;
   }
 }
 
