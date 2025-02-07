@@ -1,4 +1,6 @@
-import { type BaSurvey, type InsertBaSurvey } from "@shared/schema";
+import { type BaSurvey, type InsertBaSurvey, baSurveys } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   createBaSurvey(survey: InsertBaSurvey): Promise<BaSurvey>;
@@ -6,35 +8,36 @@ export interface IStorage {
   updateBaSurveyPlan(id: number, plan: any): Promise<BaSurvey>;
 }
 
-export class MemStorage implements IStorage {
-  private surveys: Map<number, BaSurvey>;
-  private currentId: number;
-
-  constructor() {
-    this.surveys = new Map();
-    this.currentId = 1;
-  }
-
+export class DatabaseStorage implements IStorage {
   async createBaSurvey(insertSurvey: InsertBaSurvey): Promise<BaSurvey> {
-    const id = this.currentId++;
-    const survey: BaSurvey = { ...insertSurvey, id, generatedPlan: null };
-    this.surveys.set(id, survey);
+    const [survey] = await db
+      .insert(baSurveys)
+      .values({ ...insertSurvey, generatedPlan: null })
+      .returning();
     return survey;
   }
 
   async getBaSurvey(id: number): Promise<BaSurvey | undefined> {
-    return this.surveys.get(id);
+    const [survey] = await db
+      .select()
+      .from(baSurveys)
+      .where(eq(baSurveys.id, id));
+    return survey;
   }
 
   async updateBaSurveyPlan(id: number, plan: any): Promise<BaSurvey> {
-    const survey = await this.getBaSurvey(id);
+    const [survey] = await db
+      .update(baSurveys)
+      .set({ generatedPlan: plan })
+      .where(eq(baSurveys.id, id))
+      .returning();
+
     if (!survey) {
       throw new Error("Survey not found");
     }
-    const updated = { ...survey, generatedPlan: plan };
-    this.surveys.set(id, updated);
-    return updated;
+
+    return survey;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
