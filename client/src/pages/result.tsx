@@ -30,6 +30,8 @@ export default function ResultPage() {
     );
   }
 
+  const plan = survey.generatedPlan;
+
   return (
     <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8">
       <Card className="max-w-3xl mx-auto">
@@ -43,44 +45,52 @@ export default function ResultPage() {
           <div className="space-y-6">
             <section>
               <h2 className="text-xl font-semibold mb-3">Summary</h2>
-              <p>{survey.generatedPlan.summary}</p>
+              <p>{plan.summary}</p>
             </section>
 
-            <section>
-              <h2 className="text-xl font-semibold mb-3">Objectives</h2>
-              <ul className="list-disc pl-5 space-y-2">
-                {survey.generatedPlan.objectives.map((obj, index) => (
-                  <li key={index}>{obj}</li>
-                ))}
-              </ul>
-            </section>
+            {plan.objectives?.length > 0 && (
+              <section>
+                <h2 className="text-xl font-semibold mb-3">Objectives</h2>
+                <ul className="list-disc pl-5 space-y-2">
+                  {plan.objectives.map((obj, index) => (
+                    <li key={index}>{String(obj)}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
-            <section>
-              <h2 className="text-xl font-semibold mb-3">SMART Goals</h2>
-              <ul className="list-disc pl-5 space-y-2">
-                {survey.generatedPlan.smartGoals.map((goal, index) => (
-                  <li key={index}>{goal}</li>
-                ))}
-              </ul>
-            </section>
+            {plan.smartGoals?.length > 0 && (
+              <section>
+                <h2 className="text-xl font-semibold mb-3">SMART Goals</h2>
+                <ul className="list-disc pl-5 space-y-2">
+                  {plan.smartGoals.map((goal, index) => (
+                    <li key={index}>{String(goal)}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
-            <section>
-              <h2 className="text-xl font-semibold mb-3">Action Steps</h2>
-              <ul className="list-disc pl-5 space-y-2">
-                {survey.generatedPlan.actionSteps.map((step, index) => (
-                  <li key={index}>{step}</li>
-                ))}
-              </ul>
-            </section>
+            {plan.actionSteps?.length > 0 && (
+              <section>
+                <h2 className="text-xl font-semibold mb-3">Action Steps</h2>
+                <ul className="list-disc pl-5 space-y-2">
+                  {plan.actionSteps.map((step, index) => (
+                    <li key={index}>{String(step)}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
-            <section>
-              <h2 className="text-xl font-semibold mb-3">Reminders</h2>
-              <ul className="list-disc pl-5 space-y-2">
-                {survey.generatedPlan.reminders.map((reminder, index) => (
-                  <li key={index}>{reminder}</li>
-                ))}
-              </ul>
-            </section>
+            {plan.reminders?.length > 0 && (
+              <section>
+                <h2 className="text-xl font-semibold mb-3">Reminders</h2>
+                <ul className="list-disc pl-5 space-y-2">
+                  {plan.reminders.map((reminder, index) => (
+                    <li key={index}>{String(reminder)}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
           </div>
         </CardContent>
       </Card>

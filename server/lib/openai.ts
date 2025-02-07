@@ -11,7 +11,15 @@ export async function generateBaPlan(survey: BaSurvey) {
       messages: [
         {
           role: "system",
-          content: "You are an expert in Behavioral Activation therapy. Generate a personalized plan based on the user's survey responses. Include preliminary objectives and SMART goal guidance. Format response as JSON with sections: summary, objectives, smartGoals, actionSteps, reminders."
+          content: `You are an expert in Behavioral Activation therapy. Generate a personalized plan based on the user's survey responses. 
+          Format your response as a JSON object with these arrays:
+          {
+            "summary": "string",
+            "objectives": ["string", "string", ...],
+            "smartGoals": ["string", "string", ...],
+            "actionSteps": ["string", "string", ...],
+            "reminders": ["string", "string", ...]
+          }`
         },
         {
           role: "user",
@@ -27,7 +35,18 @@ export async function generateBaPlan(survey: BaSurvey) {
       throw new Error("Failed to generate plan: Empty response from AI");
     }
 
-    return JSON.parse(content);
+    const parsedContent = JSON.parse(content);
+
+    // Ensure each field is an array
+    const plan = {
+      summary: parsedContent.summary || "",
+      objectives: Array.isArray(parsedContent.objectives) ? parsedContent.objectives : Object.values(parsedContent.objectives || {}),
+      smartGoals: Array.isArray(parsedContent.smartGoals) ? parsedContent.smartGoals : Object.values(parsedContent.smartGoals || {}),
+      actionSteps: Array.isArray(parsedContent.actionSteps) ? parsedContent.actionSteps : Object.values(parsedContent.actionSteps || {}),
+      reminders: Array.isArray(parsedContent.reminders) ? parsedContent.reminders : Object.values(parsedContent.reminders || {})
+    };
+
+    return plan;
   } catch (error: any) {
     console.error("OpenAI API error:", error);
     throw new Error(`Failed to generate BA plan: ${error.message}`);
