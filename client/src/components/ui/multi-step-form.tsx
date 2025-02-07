@@ -12,8 +12,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const sections = [
   {
-    title: "Mood Assessment",
-    description: "Let's understand your current emotional state",
+    title: "État d'Humeur Actuel",
+    description: "Comprendre votre état émotionnel actuel",
     fields: [
       "currentMood",
       "lastWeekMood",
@@ -29,45 +29,46 @@ const sections = [
     ]
   },
   {
-    title: "Daily Routine and Activity",
-    description: "Tell us about your daily activities and energy levels",
+    title: "Routine Quotidienne et Engagement",
+    description: "Parlez-nous de vos activités quotidiennes et de vos niveaux d'énergie",
     fields: ["typicalDay", "pastActivities", "activityFrequency", "peakEnergyMoments"]
   },
   {
-    title: "Personal Values",
-    description: "Help us understand what matters to you",
+    title: "Valeurs et Motivations",
+    description: "Aidez-nous à comprendre ce qui compte pour vous",
     fields: ["personalInterests", "motivatorsGoals", "positiveExperience"]
   },
   {
-    title: "Challenges",
-    description: "Let's identify what's holding you back",
+    title: "Défis et Obstacles",
+    description: "Identifions ce qui vous retient",
     fields: ["obstacles", "environmentalBarriers", "barrierDetails"]
   },
   {
-    title: "Support System",
-    description: "Tell us about your support network",
+    title: "Soutien et Ressources",
+    description: "Parlez-nous de votre réseau de soutien",
     fields: ["socialSupport", "communityResources"]
   },
   {
-    title: "Goals",
-    description: "Optional: Set your objectives or let AI help guide you",
+    title: "Objectifs",
+    description: "Optionnel: Définissez vos objectifs ou laissez l'IA vous guider",
     fields: ["objectives", "shortTermGoal"]
   }
 ];
 
 const depressionSymptoms = [
-  { id: "depressedMood", label: "Depressed mood most of the day, nearly every day" },
-  { id: "lossOfInterest", label: "Markedly diminished interest or pleasure in activities" },
-  { id: "weightChanges", label: "Significant weight loss/gain or appetite changes" },
-  { id: "sleepDisturbance", label: "Insomnia or hypersomnia" },
-  { id: "psychomotorChanges", label: "Psychomotor agitation or retardation" },
-  { id: "fatigueLossOfEnergy", label: "Fatigue or loss of energy" },
-  { id: "worthlessnessGuilt", label: "Feelings of worthlessness or excessive guilt" },
-  { id: "concentrationDifficulty", label: "Diminished ability to think or concentrate" }
+  { id: "depressedMood", label: "Humeur dépressive la majeure partie de la journée" },
+  { id: "lossOfInterest", label: "Diminution marquée de l'intérêt ou du plaisir" },
+  { id: "weightChanges", label: "Changements significatifs de poids ou d'appétit" },
+  { id: "sleepDisturbance", label: "Insomnie ou hypersomnie" },
+  { id: "psychomotorChanges", label: "Agitation ou ralentissement psychomoteur" },
+  { id: "fatigueLossOfEnergy", label: "Fatigue ou perte d'énergie" },
+  { id: "worthlessnessGuilt", label: "Sentiments de dévalorisation ou de culpabilité excessive" },
+  { id: "concentrationDifficulty", label: "Diminution de l'aptitude à penser ou à se concentrer" }
 ];
 
 export function MultiStepForm({ form }: { form: UseFormReturn<any> }) {
   const [currentStep, setCurrentStep] = useState(0);
+  const [isValid, setIsValid] = useState(false);
 
   const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, sections.length - 1));
   const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
@@ -86,8 +87,8 @@ export function MultiStepForm({ form }: { form: UseFormReturn<any> }) {
               <FormItem>
                 <FormLabel>
                   {isCurrentMood
-                    ? "How would you rate your current mood?"
-                    : "How would you rate your overall mood over the past week?"}
+                    ? "Comment évaluez-vous votre humeur actuelle?"
+                    : "Comment évaluez-vous votre humeur générale au cours de la semaine dernière?"}
                 </FormLabel>
                 <FormControl>
                   <div className="space-y-2">
@@ -99,8 +100,8 @@ export function MultiStepForm({ form }: { form: UseFormReturn<any> }) {
                       step={1}
                     />
                     <div className="flex justify-between text-sm text-muted-foreground">
-                      <span>Very low (1)</span>
-                      <span>Very good (10)</span>
+                      <span>Très basse (1)</span>
+                      <span>Très bonne (10)</span>
                     </div>
                   </div>
                 </FormControl>
@@ -126,7 +127,7 @@ export function MultiStepForm({ form }: { form: UseFormReturn<any> }) {
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <FormLabel>
-                    Does your mood vary significantly throughout the day?
+                    Votre humeur varie-t-elle considérablement tout au long de la journée ?
                   </FormLabel>
                 </div>
               </FormItem>
@@ -172,18 +173,18 @@ export function MultiStepForm({ form }: { form: UseFormReturn<any> }) {
             name={name}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Activity Frequency</FormLabel>
+                <FormLabel>Fréquence d'Activité</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select frequency" />
+                      <SelectValue placeholder="Sélectionnez la fréquence" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="0 days">0 days</SelectItem>
-                    <SelectItem value="1-2 days">1-2 days</SelectItem>
-                    <SelectItem value="3-4 days">3-4 days</SelectItem>
-                    <SelectItem value="5+ days">5+ days</SelectItem>
+                    <SelectItem value="0 jours">0 jours</SelectItem>
+                    <SelectItem value="1-2 jours">1-2 jours</SelectItem>
+                    <SelectItem value="3-4 jours">3-4 jours</SelectItem>
+                    <SelectItem value="5+ jours">5+ jours</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -200,28 +201,26 @@ export function MultiStepForm({ form }: { form: UseFormReturn<any> }) {
             name={name}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Objectives (Optional)</FormLabel>
+                <FormLabel>Objectifs (Optionnel)</FormLabel>
                 <div className="space-y-2">
                   <p className="text-sm text-muted-foreground">
-                    You can set up to three objectives, or skip this section and let AI help guide you.
+                    Vous pouvez définir jusqu'à trois objectifs, ou passer cette section et laisser l'IA vous guider.
                   </p>
                   <div className="space-y-2">
                     {[0, 1, 2].map((i) => (
                       <FormControl key={i}>
                         <Input
-                          placeholder={`Objective ${i + 1} (optional)`}
+                          placeholder={`Objectif ${i + 1} (optionnel)`}
                           value={Array.isArray(field.value) && field.value[i] ? field.value[i] : ""}
                           onChange={(e) => {
                             const newObjectives = Array.isArray(field.value) ? [...field.value] : [];
-                            // Only update if there's a value
                             if (e.target.value.trim()) {
                               newObjectives[i] = e.target.value.trim();
                             } else {
-                              // Remove empty values
                               delete newObjectives[i];
                             }
-                            // Filter out undefined/null values and update
                             field.onChange(newObjectives.filter(Boolean));
+                            setIsValid(currentStep < sections.length - 1 || newObjectives.length > 0);
                           }}
                         />
                       </FormControl>
@@ -235,6 +234,35 @@ export function MultiStepForm({ form }: { form: UseFormReturn<any> }) {
         );
 
       default:
+        const getQuestion = (fieldName: string) => {
+          switch (fieldName) {
+            case "typicalDay":
+              return "Pouvez-vous décrire une journée typique pour vous? Veuillez inclure votre heure de réveil, les repas, le travail ou les responsabilités quotidiennes et les activités de loisirs.";
+            case "pastActivities":
+              return "Quelles activités ou loisirs aimiez-vous dans le passé et qui vous manquent actuellement?";
+            case "peakEnergyMoments":
+              return "Y a-t-il des moments particuliers de la journée où vous vous sentez plus motivé(e) ou avez plus d'énergie? Décrivez-les.";
+            case "personalInterests":
+              return "Quelles activités, rôles ou loisirs considérez-vous comme les plus significatifs ou importants dans votre vie?";
+            case "motivatorsGoals":
+              return "Pouvez-vous partager des valeurs personnelles ou des objectifs à long terme qui vous inspirent ou vers lesquels vous aimeriez travailler?";
+            case "positiveExperience":
+              return "Pensez à un moment récent où vous vous êtes senti(e) même un peu positif(ve) ou satisfait(e). Que faisiez-vous et qu'est-ce qui rendait cette expérience gratifiante?";
+            case "obstacles":
+              return "Quels défis ou obstacles vous empêchent actuellement de vous engager dans les activités que vous appréciez?";
+            case "environmentalBarriers":
+              return "Y a-t-il des aspects spécifiques de votre routine quotidienne ou de votre environnement qui rendent difficile d'être actif(ve)?";
+            case "socialSupport":
+              return "Sur qui comptez-vous pour du soutien dans votre vie quotidienne et comment vous aident-ils?";
+            case "communityResources":
+              return "Y a-t-il des ressources communautaires, des groupes ou des services auxquels vous avez accès qui pourraient vous aider à devenir plus actif(ve)?";
+            case "shortTermGoal":
+              return "Que souhaitez-vous accomplir dans les deux prochaines semaines en termes d'augmentation d'activité ou d'amélioration de votre humeur? Soyez aussi précis que possible.";
+            default:
+              return fieldName.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase());
+          }
+        };
+
         return (
           <FormField
             key={name}
@@ -242,9 +270,9 @@ export function MultiStepForm({ form }: { form: UseFormReturn<any> }) {
             name={name}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{name.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}</FormLabel>
+                <FormLabel>{getQuestion(name)}</FormLabel>
                 <FormControl>
-                  <Textarea {...field} />
+                  <Textarea {...field} className="min-h-[100px]" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -273,7 +301,7 @@ export function MultiStepForm({ form }: { form: UseFormReturn<any> }) {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.2 }}
         >
-          <Card>
+          <Card className="border-none shadow-lg">
             <CardContent className="pt-6">
               <h2 className="text-xl font-semibold mb-2">{sections[currentStep].title}</h2>
               <p className="text-sm text-muted-foreground mb-6">{sections[currentStep].description}</p>
@@ -292,13 +320,15 @@ export function MultiStepForm({ form }: { form: UseFormReturn<any> }) {
           onClick={prevStep}
           disabled={currentStep === 0}
         >
-          Previous
+          Précédent
         </Button>
         {currentStep === sections.length - 1 ? (
-          <Button type="submit">Generate Plan</Button>
+          <Button type="submit" disabled={!isValid}>
+            Générer le Plan
+          </Button>
         ) : (
           <Button type="button" onClick={nextStep}>
-            Next
+            Suivant
           </Button>
         )}
       </div>

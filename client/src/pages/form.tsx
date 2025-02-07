@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { MultiStepForm } from "@/components/ui/multi-step-form";
 import { Card } from "@/components/ui/card";
+import { Waves } from "@/components/ui/waves";
 
 export default function FormPage() {
   const [, setLocation] = useLocation();
@@ -25,9 +26,8 @@ export default function FormPage() {
       fatigueLossOfEnergy: false,
       worthlessnessGuilt: false,
       concentrationDifficulty: false,
-      objectives: [], // Initialize as empty array
-      activityFrequency: "0 days",
-      // Initialize other text fields as empty strings
+      objectives: [],
+      activityFrequency: "0 jours",
       typicalDay: "",
       pastActivities: "",
       peakEnergyMoments: "",
@@ -45,10 +45,12 @@ export default function FormPage() {
 
   const onSubmit = async (data: any) => {
     try {
-      // Ensure objectives is an array
+      // Validate objectives
+      const objectives = Array.isArray(data.objectives) ? data.objectives.filter(Boolean) : [];
+
       const formData = {
         ...data,
-        objectives: Array.isArray(data.objectives) ? data.objectives : []
+        objectives
       };
 
       console.log("Submitting form data:", formData);
@@ -59,20 +61,21 @@ export default function FormPage() {
     } catch (error) {
       console.error("Form submission error:", error);
       toast({
-        title: "Error",
-        description: "Failed to submit survey. Please try again.",
+        title: "Erreur",
+        description: "Échec de la soumission du sondage. Veuillez réessayer.",
         variant: "destructive"
       });
     }
   };
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8">
-      <Card className="max-w-3xl mx-auto p-6">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <Waves className="absolute inset-0 pointer-events-none" />
+      <Card className="max-w-3xl mx-auto p-6 bg-white/80 backdrop-blur-sm shadow-lg relative z-10">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-foreground">Behavioral Activation Plan</h1>
-          <p className="mt-2 text-muted-foreground">
-            Let's work together to create a personalized plan to help improve your mood and daily activities.
+          <h1 className="text-3xl font-bold text-gray-800">Plan d'Activation Comportementale</h1>
+          <p className="mt-2 text-gray-600">
+            Travaillons ensemble pour créer un plan personnalisé qui vous aidera à améliorer votre humeur et vos activités quotidiennes.
           </p>
         </div>
         <Form {...form}>

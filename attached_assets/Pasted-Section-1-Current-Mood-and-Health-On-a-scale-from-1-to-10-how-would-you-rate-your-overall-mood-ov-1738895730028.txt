@@ -1,0 +1,45 @@
+Section 1: Current Mood and Health
+
+On a scale from 1 to 10, how would you rate your overall mood over the past week?
+
+(Optional follow-up: Please describe in a few sentences what contributed to this rating.)
+How would you describe your current mood and energy levels throughout the day?
+
+Are there specific times during the day when you feel significantly better or worse (e.g., mornings, afternoons, evenings)? Please explain.
+
+Section 2: Daily Routine and Activity Engagement
+
+Can you describe a typical day for you? Please include your wake-up time, meals, work or daily responsibilities, and any leisure activities.
+
+What activities or hobbies did you enjoy in the past that you currently find yourself missing?
+
+On average, how many days per week do you engage in physical or social activities?
+
+(Provide options such as “0 days,” “1-2 days,” “3-4 days,” “5+ days.”)
+Are there particular moments or parts of your day when you feel more motivated or have extra energy? Please describe them.
+
+Section 3: Interests, Values, and Motivators
+
+What activities, roles, or hobbies do you consider most meaningful or important in your life?
+
+Can you share any personal values or long-term goals that inspire you or that you’d like to work towards?
+
+Think of a recent time when you felt even a little positive or satisfied. What were you doing, and what made that experience rewarding?
+
+Section 4: Barriers and Challenges
+
+What challenges or obstacles currently prevent you from engaging in the activities you enjoy?
+
+Are there any specific aspects of your daily routine or environment that make it difficult to be active (e.g., lack of time, physical health concerns, limited access to safe outdoor spaces)? Please describe.
+
+Section 5: Support and Resources
+
+Who do you rely on for support in your day-to-day life, and how do they help you?
+
+Are there any community resources, groups, or services you have access to that might help you become more active? Please list any that come to mind.
+
+Section 6: Goals and Future Aspirations
+
+Please list up to three objectives you’d like to work on to improve your mood and activity levels. If you’re unsure, you may skip this step and our AI will help guide you.
+
+What would you like to achieve in the next two weeks in terms of increasing activity or improving your mood? Please be as specific as possible.
